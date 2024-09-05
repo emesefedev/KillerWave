@@ -265,6 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 963194227}
+  directionalLight: {fileID: 705507994}
 --- !u!1001 &8147635957578213817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -290,7 +291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8147635958537192653, guid: 4efcdee35890948c88cb37cdeeb771c7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 8147635958537192653, guid: 4efcdee35890948c88cb37cdeeb771c7, type: 3}
       propertyPath: m_LocalRotation.w
