@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Create Actor Model", menuName = "Actor Model")]
+[CreateAssetMenu(fileName = "New Actor Model", menuName = "Actor Model")]
 public class SOActorModel : ScriptableObject
 {
     public enum AttackType {
