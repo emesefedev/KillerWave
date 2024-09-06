@@ -67,23 +67,22 @@ public class Player : MonoBehaviour, IActorTemplate
 
     private void Movement()
     {
-        // TODO: Arreglar porque falla horizontalmente
+        
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
         if (horizontalInput > 0)
         {
-            if (transform.localPosition.x < width + width / 0.9f)
+            // TODO: Arreglar porque falla horizontalmente. El margen derecho está mal
+            if (transform.localPosition.x < width / 0.9f)
             {
                 transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
             }
         } 
         else if (horizontalInput < 0)
         {
-            Debug.Log("Hola");
-            if (transform.localPosition.x > width + width / 6f)
+            if (transform.localPosition.x > -width / 6f)
             {
-                Debug.Log("Hol");
                 transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
             }
         }
@@ -129,6 +128,6 @@ public class Player : MonoBehaviour, IActorTemplate
 
     public void Die()
     {
-        throw new System.NotImplementedException();
+        Destroy(this.gameObject);
     }
 }
