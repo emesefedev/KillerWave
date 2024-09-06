@@ -18,7 +18,7 @@ public class PlayerSpawner : MonoBehaviour
     private void CreatePlayer()
     {
         playerShip = Instantiate(actorModel.actor);
-        //playerShip.GetComponent<Player>().ActorStats(actorModel);
+        playerShip.GetComponent<Player>().ActorStats(actorModel);
 
         playerShip.name = PLAYER_NAME;
         playerShip.transform.position = initialPosition;
