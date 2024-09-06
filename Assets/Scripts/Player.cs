@@ -28,8 +28,6 @@ public class Player : MonoBehaviour, IActorTemplate
         width = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).x - 0.5f);
         height = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).y - 0.5f);
 
-        Debug.Log($"{width} x {height}");
-
         _Player = GameObject.Find("_Player");
     }
 
@@ -74,14 +72,14 @@ public class Player : MonoBehaviour, IActorTemplate
         if (horizontalInput > 0)
         {
             // TODO: Arreglar porque falla horizontalmente. El margen derecho está mal
-            if (transform.localPosition.x < width / 0.9f)
+            if (transform.localPosition.x < width + width / 0.9f)
             {
                 transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
             }
         } 
         else if (horizontalInput < 0)
         {
-            if (transform.localPosition.x > -width / 6f)
+            if (transform.localPosition.x > width + width / 6f)
             {
                 transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
             }
@@ -128,6 +126,6 @@ public class Player : MonoBehaviour, IActorTemplate
 
     public void Die()
     {
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }
