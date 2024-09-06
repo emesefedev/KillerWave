@@ -25,8 +25,10 @@ public class Player : MonoBehaviour, IActorTemplate
     private void Start()
     {
         // Independent of screen resolution
-        width = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)). x - 0.5f);
+        width = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).x - 0.5f);
         height = 1 / (Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0)).y - 0.5f);
+
+        Debug.Log($"{width} x {height}");
 
         _Player = GameObject.Find("_Player");
     }
@@ -65,7 +67,41 @@ public class Player : MonoBehaviour, IActorTemplate
 
     private void Movement()
     {
+        // TODO: Arreglar porque falla horizontalmente
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
 
+        if (horizontalInput > 0)
+        {
+            if (transform.localPosition.x < width + width / 0.9f)
+            {
+                transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
+            }
+        } 
+        else if (horizontalInput < 0)
+        {
+            Debug.Log("Hola");
+            if (transform.localPosition.x > width + width / 6f)
+            {
+                Debug.Log("Hol");
+                transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
+            }
+        }
+
+        if (verticalInput > 0)
+        {
+            if (transform.localPosition.y < height / 2.5f)
+            {
+                transform.localPosition += new Vector3(0, verticalInput * speed * Time.deltaTime, 0);
+            }
+        }
+        else if (verticalInput < 0)
+        {
+            if (transform.localPosition.y > -height / 3f)
+            {
+                transform.localPosition += new Vector3(0, verticalInput * speed * Time.deltaTime, 0);
+            }
+        }
     }
 
     private void Attack()
