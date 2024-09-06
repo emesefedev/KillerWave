@@ -37,6 +37,32 @@ public class Player : MonoBehaviour, IActorTemplate
         Attack();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            if (health <= 0)
+            {
+                Die();
+            }
+            else if (health >= 1)
+            {
+                // TODO: What? no tusta. When shield is created, modify this
+                Transform enemy = transform.Find("energy +1(Clone)");
+                if (enemy != null)
+                {
+                    Destroy(enemy.gameObject);
+                    health -= other.GetComponent<IActorTemplate>().SendDamage();
+                }
+                else
+                {
+                    // TODO: Try to avoid magic number. What does this 1 represent?
+                    health -= 1;
+                }
+            }
+        }
+    }
+
     private void Movement()
     {
 
@@ -57,12 +83,12 @@ public class Player : MonoBehaviour, IActorTemplate
 
     public int SendDamage()
     {
-        throw new System.NotImplementedException();
+        return hitPower;
     }
 
     public void TakeDamage(int damage)
     {
-        throw new System.NotImplementedException();
+        health -= damage;
     }
 
     public void Die()
