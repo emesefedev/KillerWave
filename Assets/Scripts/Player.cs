@@ -114,8 +114,8 @@ public class Player : MonoBehaviour, IActorTemplate
 
     public void ActorStats(SOActorModel actorModel)
     {
-        health = actorModel.health;
         speed = actorModel.speed;
+        health = actorModel.health;
         hitPower = actorModel.hitPower;
         bullet = actorModel.actorBullets;
     }
