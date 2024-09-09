@@ -25,8 +25,5 @@ public class PlayerSpawner : MonoBehaviour
         playerShip.transform.rotation = initialRotation;
         playerShip.transform.localScale = playerScale;
         playerShip.transform.SetParent(transform);
-
-        
-
     }
 }
