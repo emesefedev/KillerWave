@@ -7,6 +7,7 @@ public class Player : MonoBehaviour, IActorTemplate
     private int hitPower;
     private GameObject actor;
     private GameObject bullet;
+    private Vector3 bulletScale = new Vector3(7, 7, 7);
     private GameObject _Player;
 
     // World space measurements
@@ -103,7 +104,12 @@ public class Player : MonoBehaviour, IActorTemplate
 
     private void Attack()
     {
-
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GameObject bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity);
+            bulletInstance.transform.SetParent(_Player.transform);
+            bulletInstance.transform.localScale = bulletScale;
+        }
     }
 
     public void ActorStats(SOActorModel actorModel)
