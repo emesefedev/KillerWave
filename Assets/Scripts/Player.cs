@@ -42,11 +42,7 @@ public class Player : MonoBehaviour, IActorTemplate
     {
         if (other.CompareTag("Enemy"))
         {
-            if (health <= 0)
-            {
-                Die();
-            }
-            else if (health >= 1)
+            if (health >= 1)
             {
                 // TODO: What? no tusta. When shield is created, modify this
                 Transform enemy = transform.Find("energy +1(Clone)");
@@ -60,6 +56,11 @@ public class Player : MonoBehaviour, IActorTemplate
                     // TODO: Try to avoid magic number. What does this 1 represent?
                     health -= 1;
                 }
+            }
+            
+            if (health <= 0)
+            {
+                Die();
             }
         }
     }

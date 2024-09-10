@@ -25,13 +25,14 @@ public class PlayerBullet : MonoBehaviour, IActorTemplate
             IActorTemplate actorTemplate = other.GetComponent<IActorTemplate>();
             if (actorTemplate != null)
             {
+                if (health >= 1)
+                {
+                    health -= actorTemplate.SendDamage();
+                }
+                
                 if (health <= 0)
                 {
                     Die();
-                }
-                else if (health >= 1)
-                {
-                    health -= actorTemplate.SendDamage();
                 }
             }
         }
