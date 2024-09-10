@@ -340,6 +340,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1090718715}
   - component: {fileID: 1090718716}
+  - component: {fileID: 1090718717}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -375,6 +376,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 963194227}
   directionalLight: {fileID: 705507994}
+--- !u!114 &1090718717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090718714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4a9747880bc242b69e072fb091d2a9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1226164007 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5292569301766025613, guid: 1d14c1dc368394650ab766b97a0c1c6f, type: 3}
