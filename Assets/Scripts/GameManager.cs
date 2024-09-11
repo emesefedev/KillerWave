@@ -8,7 +8,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return instance; } }
 
     public static Scenes currentScene;
-    public static Scenes gameLevelScene = Scenes.Level1;
+
+    public static int playerLives = 3;
+
+    [SerializeField] private ScenesManager scenesManager;
 
     private bool died = false;
     public bool Died {
@@ -78,6 +81,21 @@ public class GameManager : MonoBehaviour
                 LightSetup();
                 break;
             }
+        }
+    }
+
+    public void LoseLife()
+    {
+        if (playerLives >= 1)
+        {
+            playerLives--;
+            Debug.Log($"Lives left: {playerLives}");
+            scenesManager.ResetCurrentScene();
+        }
+        else
+        {
+            playerLives = 3;
+            scenesManager.GameOver();
         }
     }
 }

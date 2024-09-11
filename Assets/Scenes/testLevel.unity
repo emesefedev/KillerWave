@@ -374,6 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aded6456339aa4225a51a16a6a5b8f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scenesManager: {fileID: 1090718717}
   mainCamera: {fileID: 963194227}
   directionalLight: {fileID: 705507994}
 --- !u!114 &1090718717
