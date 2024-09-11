@@ -4,11 +4,13 @@ using UnityEngine.SceneManagement;
 public class ScenesManager : MonoBehaviour
 {
     // Scene names must be equal to the values of Scenes enum
+    // The values of Scenes enum must be in the same order as the Scenes in Build Settings
     public enum Scenes
     {
         BootUp,
         Title,
         Shop,
+        TestLevel,
         Level1,
         Level2,
         Level3,
@@ -27,6 +29,6 @@ public class ScenesManager : MonoBehaviour
 
     public void BeginGame()
     {
-        SceneManager.LoadScene("TestLevel");
+        SceneManager.LoadScene(Scenes.TestLevel.ToString());
     }
 }

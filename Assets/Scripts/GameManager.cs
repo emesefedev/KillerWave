@@ -1,9 +1,20 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Scenes = ScenesManager.Scenes;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
+
+    public static Scenes currentScene;
+    public static Scenes gameLevelScene = Scenes.Level1;
+
+    private bool died = false;
+    public bool Died {
+        get { return died; }
+        set { died = value; }
+    }
 
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Light directionalLight;
@@ -15,6 +26,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         CheckGameManagerIsInScene();
+        currentScene = (Scenes) SceneManager.GetActiveScene().buildIndex;
+        CameraAndLightSetup(currentScene);
     }
 
     private void Start()
@@ -50,5 +63,21 @@ public class GameManager : MonoBehaviour
     {
         directionalLight.transform.eulerAngles = directionalLightRotation;
         directionalLight.color = directionalLightColor;
+    }
+
+    private void CameraAndLightSetup(Scenes currentScene)
+    {
+        switch (currentScene)
+        {
+            case Scenes.TestLevel : 
+            case Scenes.Level1 : 
+            case Scenes.Level2 : 
+            case Scenes.Level3 : 
+            {
+                CameraSetup();
+                LightSetup();
+                break;
+            }
+        }
     }
 }
