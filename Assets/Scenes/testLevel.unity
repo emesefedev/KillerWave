@@ -376,6 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenesManager: {fileID: 1090718717}
+  scoreManager: {fileID: 1090718718}
   mainCamera: {fileID: 963194227}
   directionalLight: {fileID: 705507994}
 --- !u!114 &1090718717
