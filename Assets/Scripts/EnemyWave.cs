@@ -5,6 +5,7 @@ public class EnemyWave : MonoBehaviour, IActorTemplate
     private int speed;
     private int health;
     private int hitPower;
+    private int score;
 
     private int bulletSpeed;
     
@@ -30,6 +31,7 @@ public class EnemyWave : MonoBehaviour, IActorTemplate
             
             if (health <= 0)
             {
+                GameManager.Instance.GetScoreManager().SetScore(score);
                 Die();
             }
             
@@ -49,6 +51,7 @@ public class EnemyWave : MonoBehaviour, IActorTemplate
         speed = actorModel.speed;
         health = actorModel.health;
         hitPower = actorModel.hitPower;
+        score = actorModel.score;
     }
 
     public void Die()

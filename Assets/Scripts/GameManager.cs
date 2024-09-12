@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public static int playerLives = 3;
 
     [SerializeField] private ScenesManager scenesManager;
+    [SerializeField] private ScoreManager scoreManager;
 
     private bool died = false;
     public bool Died {
@@ -97,5 +98,10 @@ public class GameManager : MonoBehaviour
             playerLives = 3;
             scenesManager.GameOver();
         }
+    }
+
+    public ScoreManager GetScoreManager()
+    {
+        return scoreManager;
     }
 }
