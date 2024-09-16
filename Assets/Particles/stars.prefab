@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 199104619645190628}
   - component: {fileID: 198816248428684274}
   m_Layer: 0
-  m_Name: warpStars_pe
+  m_Name: stars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
