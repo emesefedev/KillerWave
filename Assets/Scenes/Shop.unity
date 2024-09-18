@@ -310,13 +310,33 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1164503416642560, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: m_Name
+      value: Text Box Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1253410048647078, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: m_Name
+      value: Shop Selection
+      objectReference: {fileID: 0}
+    - target: {fileID: 1315194156372728, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: m_Name
+      value: Shop Display
+      objectReference: {fileID: 0}
     - target: {fileID: 1497224957761448, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1623120871451580, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: m_Name
+      value: Shop
+      objectReference: {fileID: 0}
     - target: {fileID: 1624764302995810, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
       propertyPath: m_Name
       value: Shop Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1735884692899478, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: m_Name
+      value: Bank
       objectReference: {fileID: 0}
     - target: {fileID: 1856408533656554, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
       propertyPath: m_IsActive
