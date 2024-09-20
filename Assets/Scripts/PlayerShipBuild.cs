@@ -9,6 +9,7 @@ public class PlayerShipBuild : MonoBehaviour
 
     [SerializeField] private SOActorModel defaultPlayerShip;
     [SerializeField] private GameObject[] visualWeapons;
+    [SerializeField] private GameObject[] weaponsPrefabs;
     private GameObject playerShip;
     
     [SerializeField] private GameObject buyButton;
@@ -39,12 +40,19 @@ public class PlayerShipBuild : MonoBehaviour
 
     private void TurnOffPlayerShipVisuals()
     {
-
+        foreach (GameObject visualWeapon in visualWeapons)
+        {
+            visualWeapon.SetActive(false);
+        }
     }
 
     private void PreparePlayerShipForUpgrade()
     {
+        playerShip = Instantiate(defaultPlayerShip.actor);
 
+        playerShip.GetComponent<Player>().enabled = false;
+        playerShip.transform.position = new Vector3(0, 10000, 0);
+        playerShip.GetComponent<IActorTemplate>().ActorStats(defaultPlayerShip);
     }
 
     private void UpdateBankText()
@@ -74,6 +82,7 @@ public class PlayerShipBuild : MonoBehaviour
 
             if (target != null)
             {
+                // TODO: Mejorar la forma de identificar los botones
                 if (target.name.Contains("Upgrade"))
                 {
                     TurnOffSelectionHighlights();
@@ -90,8 +99,70 @@ public class PlayerShipBuild : MonoBehaviour
                         SoldOut();
                     }
                 }
+                else if (target.name.Equals("Watch Ad"))
+                {
+                    WatchAd();
+                }
+                else if (target.name.Equals("Start"))
+                {
+                    StartGame();
+                }
+                else if (target.name.Equals("Buy Button"))
+                {
+                    BuyUpgrade();
+                }
             }
         }
+    }
+
+    private void WatchAd()
+    {
+
+    }
+
+    private void BuyUpgrade()
+    {
+        Debug.Log("Purchase made");
+        purchaseMade = true;
+        buyButton.SetActive(false);
+        currentSelection.SetActive(false);
+
+        //TODO: Mejorar esto para que no dependa de los nombres (strings) de los SO
+        ShopPiece currentShopPiece = currentSelection.GetComponentInParent<ShopPiece>();
+        for (int i = 0; i < visualWeapons.Length; i++)
+        {   
+            if (visualWeapons[i].name.Equals(currentShopPiece.ShopSelection.iconName))
+            {
+                visualWeapons[i].SetActive(true);
+            }
+        }
+
+        UpgradeShip(currentShopPiece);
+
+        bank -= currentShopPiece.ShopSelection.cost;
+        UpdateBankText();
+
+        currentSelection.transform.parent.transform.GetComponentInChildren<TextMesh>().text = "SOLD";
+    }
+
+    //TODO: Mejorar la forma en que se relacionan los prefabs con la mejora elegida
+    private void UpgradeShip(ShopPiece shopPiece)
+    {
+        foreach (GameObject weapon in weaponsPrefabs)
+        {
+            GameObject shipUgrade;
+            if (weapon.name.Equals(shopPiece.ShopSelection.iconName))
+            {
+                shipUgrade = Instantiate(weapon);
+                shipUgrade.transform.SetParent(playerShip.transform);
+                shipUgrade.transform.localPosition = Vector3.zero;
+            }
+        }
+    }
+
+    private void StartGame()
+    {
+
     }
 
     private void CheckTargetAffordable()
