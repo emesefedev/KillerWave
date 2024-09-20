@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerShipBuild : MonoBehaviour
 {
@@ -6,18 +7,49 @@ public class PlayerShipBuild : MonoBehaviour
     [SerializeField] private TextMesh textBoxName;
     [SerializeField] private TextMesh textBoxDescription;
 
+    [SerializeField] private SOActorModel defaultPlayerShip;
+    [SerializeField] private GameObject[] visualWeapons;
+    private GameObject playerShip;
+    
+    [SerializeField] private GameObject buyButton;
+    [SerializeField] private TextMesh bankText;
+    private int bank = 600;
+    private bool purchaseMade;
+
 
     private GameObject target;
     private GameObject currentSelection;
 
     private void Start()
     {
+        purchaseMade = false;
+
         TurnOffSelectionHighlights();
+        
+        UpdateBankText();
+        
+        TurnOffPlayerShipVisuals();
+        PreparePlayerShipForUpgrade();
     }
 
     private void Update()
     {
         AttemptSelection();
+    }
+
+    private void TurnOffPlayerShipVisuals()
+    {
+
+    }
+
+    private void PreparePlayerShipForUpgrade()
+    {
+
+    }
+
+    private void UpdateBankText()
+    {
+        bankText.text = bank.ToString();
     }
 
     private GameObject ReturnClickedObject(out RaycastHit hit)
@@ -42,14 +74,45 @@ public class PlayerShipBuild : MonoBehaviour
 
             if (target != null)
             {
-                if (target.gameObject.name.Contains("Upgrade"))
+                if (target.name.Contains("Upgrade"))
                 {
                     TurnOffSelectionHighlights();
                     Select();
                     UpdateTextBoxPanel();
+
+                    string costText = target.transform.GetChild(1).GetComponent<TextMesh>().text;
+                    if (costText != "SOLD") 
+                    {
+                        CheckTargetAffordable();
+                    }
+                    else 
+                    {
+                        SoldOut();
+                    }
                 }
             }
         }
+    }
+
+    private void CheckTargetAffordable()
+    {
+        ShopPiece targetShopPiece = target.GetComponent<ShopPiece>();
+        int targetCost = targetShopPiece.ShopSelection.cost;
+
+        if (bank >= targetCost)
+        {
+            Debug.Log("Can Buy");
+            buyButton.SetActive(true);
+        } 
+        else 
+        {
+            Debug.Log("Can't Buy");
+        }
+    }
+
+    private void SoldOut()
+    {
+        Debug.Log("SOLD OUT");
     }
 
     private void Select()

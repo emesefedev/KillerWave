@@ -306,6 +306,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: bankText
+      value: 
+      objectReference: {fileID: 1783227779}
+    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: buyButton
+      value: 
+      objectReference: {fileID: 1783227781}
+    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: bankGameObject
+      value: 
+      objectReference: {fileID: 1783227780}
+    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: defaultPlayerShip
+      value: 
+      objectReference: {fileID: 11400000, guid: e250df3eb18a74f2c878091db3b17350, type: 2}
     - target: {fileID: 1624764302995810, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
       propertyPath: m_Name
       value: Shop Manager
@@ -356,3 +372,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+--- !u!102 &1783227779 stripped
+TextMesh:
+  m_CorrespondingSourceObject: {fileID: 102653561020829592, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+  m_PrefabInstance: {fileID: 1783227778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1783227780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1735884692899478, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+  m_PrefabInstance: {fileID: 1783227778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1783227781 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1811436229612680, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+  m_PrefabInstance: {fileID: 1783227778}
+  m_PrefabAsset: {fileID: 0}
