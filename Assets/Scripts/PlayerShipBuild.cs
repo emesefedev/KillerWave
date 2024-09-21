@@ -162,7 +162,18 @@ public class PlayerShipBuild : MonoBehaviour
 
     private void StartGame()
     {
+        if (purchaseMade)
+        {
+            // TODO: Buscar una forma mejor de hacer esto
+            if (playerShip.transform.Find("energy +1(Clone)"))
+            {
+                playerShip.GetComponent<Player>().Health += 1;
+            }
+            DontDestroyOnLoad(playerShip);
+        }
 
+        // TODO: Cambiar esto
+        UnityEngine.SceneManagement.SceneManager.LoadScene("TestLevel");
     }
 
     private void CheckTargetAffordable()
