@@ -315,6 +315,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1783227781}
     - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: iosGameId
+      value: 5701317
+      objectReference: {fileID: 0}
+    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: androidGameId
+      value: 5701316
+      objectReference: {fileID: 0}
+    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
       propertyPath: bankGameObject
       value: 
       objectReference: {fileID: 1783227780}

@@ -1,7 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Advertisements;
+using System.Collections;
 
-public class PlayerShipBuild : MonoBehaviour
+public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
     [SerializeField] private GameObject[] shopButtons;
     [SerializeField] private TextMesh textBoxName;
@@ -21,6 +22,16 @@ public class PlayerShipBuild : MonoBehaviour
     private GameObject target;
     private GameObject currentSelection;
 
+    [SerializeField] private string androidGameId;
+    [SerializeField] private string iosGameId;
+    [SerializeField] private bool testMode = true;
+    private string adId;
+
+    private void Awake()
+    {
+        CheckPlatform();
+    }
+
     private void Start()
     {
         purchaseMade = false;
@@ -31,11 +42,46 @@ public class PlayerShipBuild : MonoBehaviour
         
         TurnOffPlayerShipVisuals();
         PreparePlayerShipForUpgrade();
+
+        StartCoroutine(WaitForAd());
     }
 
     private void Update()
     {
         AttemptSelection();
+    }
+
+    private void CheckPlatform()
+    {
+        string gameId = null;
+
+        #if UNITY_IOS
+        {
+            gameId = iosGameId;
+            adId = "Rewarded_iOS";
+        }
+        #elif UNITY_ANDROID
+        {
+            gameId = androidGameId;
+            adId = "Rewarded_Android";
+        }
+        #endif
+
+        Advertisement.Initialize(gameId, testMode, this);
+    }
+
+    private IEnumerator WaitForAd()
+    {
+        while (!Advertisement.isInitialized)
+        {
+            yield return null;
+        }
+        LoadAd();
+    }
+
+    private void LoadAd()
+    {
+        Advertisement.Load(adId, this);
     }
 
     private void TurnOffPlayerShipVisuals()
@@ -117,7 +163,7 @@ public class PlayerShipBuild : MonoBehaviour
 
     private void WatchAd()
     {
-
+        Advertisement.Show(adId, this);
     }
 
     private void BuyUpgrade()
@@ -216,5 +262,58 @@ public class PlayerShipBuild : MonoBehaviour
         {
             shopButton.SetActive(false);
         }
+    }
+
+    public void OnInitializationComplete()
+    {
+       Debug.Log("Unity Ads initialization complete"); 
+    }  
+
+    public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+    {
+        Debug.Log($"Unity Ads initialization failed: {error} - {message}"); 
+    }
+
+    public void OnUnityAdsAdLoaded(string placementId)
+    {
+        
+    }
+
+    public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
+    {
+        
+    }
+
+    public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
+    {
+        Debug.Log($"Unity Ads show failed: {error} - {message}"); 
+    }
+
+    public void OnUnityAdsShowStart(string placementId)
+    {
+        
+    }
+
+    public void OnUnityAdsShowClick(string placementId)
+    {
+        
+    }
+
+    public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
+    {
+        switch (showCompletionState)
+        {
+            case UnityAdsShowCompletionState.COMPLETED:
+                Debug.Log("Unity Ads reward completed");
+                bank += 300;
+                UpdateBankText();
+                break;
+            case UnityAdsShowCompletionState.SKIPPED |  UnityAdsShowCompletionState.UNKNOWN:
+                // DON'T REWARD PLAYER
+                break;
+        }
+
+        Advertisement.Load(adId, this);
+        TurnOffSelectionHighlights();
     }
 }
