@@ -327,6 +327,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: weaponsPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
       propertyPath: visualWeapons.Array.data[0]
       value: 
       objectReference: {fileID: 1783227784}
@@ -338,9 +342,25 @@ PrefabInstance:
       propertyPath: visualWeapons.Array.data[2]
       value: 
       objectReference: {fileID: 1783227782}
+    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: weaponsPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1102415631060482, guid: 81a0b6bf432b352438dfabcfb953ac18, type: 3}
+    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: weaponsPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1734163421600896, guid: 402f6eb9e2864834696c463a73ac435d, type: 3}
+    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: weaponsPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 1350533636496164, guid: 58ddbb7369857c94cb8d47f5f3a89c64, type: 3}
     - target: {fileID: 1088013412868314, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
       propertyPath: m_Name
       value: Blast Shot
+      objectReference: {fileID: 0}
+    - target: {fileID: 1088013412868314, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1556134829789958, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
       propertyPath: m_Name
