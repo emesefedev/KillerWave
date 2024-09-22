@@ -4850,6 +4850,7 @@ GameObject:
   - component: {fileID: 4605482744716308881}
   - component: {fileID: -7812199364079361368}
   - component: {fileID: 6952109687846727034}
+  - component: {fileID: 7568562861197526572}
   m_Layer: 6
   m_Name: Player Ship
   m_TagString: Player
@@ -5024,3 +5025,15 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &7568562861197526572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111500071503026609}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be6b6c80e50e49a49441ca65c39c258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
