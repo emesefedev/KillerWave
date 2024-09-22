@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    private void CameraSetup() 
+    public void CameraSetup() 
     {
         mainCamera.transform.position = initialCameraPosition;
         mainCamera.transform.rotation = Quaternion.identity;

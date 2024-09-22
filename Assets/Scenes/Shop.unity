@@ -306,81 +306,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: bankText
-      value: 
-      objectReference: {fileID: 1783227779}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: buyButton
-      value: 
-      objectReference: {fileID: 1783227781}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: iosGameId
-      value: 5701317
-      objectReference: {fileID: 0}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: androidGameId
-      value: 5701316
-      objectReference: {fileID: 0}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: bankGameObject
-      value: 
-      objectReference: {fileID: 1783227780}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: defaultPlayerShip
-      value: 
-      objectReference: {fileID: 11400000, guid: e250df3eb18a74f2c878091db3b17350, type: 2}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: visualWeapons.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: weaponsPrefabs.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: visualWeapons.Array.data[0]
-      value: 
-      objectReference: {fileID: 1783227784}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: visualWeapons.Array.data[1]
-      value: 
-      objectReference: {fileID: 1783227783}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: visualWeapons.Array.data[2]
-      value: 
-      objectReference: {fileID: 1783227782}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: weaponsPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 1102415631060482, guid: 81a0b6bf432b352438dfabcfb953ac18, type: 3}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: weaponsPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 1734163421600896, guid: 402f6eb9e2864834696c463a73ac435d, type: 3}
-    - target: {fileID: 1783227801, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: weaponsPrefabs.Array.data[2]
-      value: 
-      objectReference: {fileID: 1350533636496164, guid: 58ddbb7369857c94cb8d47f5f3a89c64, type: 3}
-    - target: {fileID: 1088013412868314, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: m_Name
-      value: Blast Shot
-      objectReference: {fileID: 0}
-    - target: {fileID: 1088013412868314, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1556134829789958, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: m_Name
-      value: Energy +1
-      objectReference: {fileID: 0}
     - target: {fileID: 1624764302995810, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
       propertyPath: m_Name
       value: Shop Manager
       objectReference: {fileID: 0}
     - target: {fileID: 1950579529129072, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-      propertyPath: m_Name
-      value: Cluster Bomb
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4598428617825470, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
       propertyPath: m_RootOrder
@@ -428,33 +360,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
---- !u!102 &1783227779 stripped
-TextMesh:
-  m_CorrespondingSourceObject: {fileID: 102653561020829592, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-  m_PrefabInstance: {fileID: 1783227778}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1783227780 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1735884692899478, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-  m_PrefabInstance: {fileID: 1783227778}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1783227781 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1811436229612680, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-  m_PrefabInstance: {fileID: 1783227778}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1783227782 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1556134829789958, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-  m_PrefabInstance: {fileID: 1783227778}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1783227783 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1950579529129072, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-  m_PrefabInstance: {fileID: 1783227778}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1783227784 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1088013412868314, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
-  m_PrefabInstance: {fileID: 1783227778}
-  m_PrefabAsset: {fileID: 0}

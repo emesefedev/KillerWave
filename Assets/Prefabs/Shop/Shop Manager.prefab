@@ -416,7 +416,7 @@ GameObject:
   - component: {fileID: 33317783066368120}
   - component: {fileID: 23137615570981156}
   m_Layer: 0
-  m_Name: b. Shot
+  m_Name: Blast Shot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1076,7 +1076,7 @@ GameObject:
   - component: {fileID: 33490073347038136}
   - component: {fileID: 23650061600191556}
   m_Layer: 0
-  m_Name: Text Box Panel
+  m_Name: Info Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1447,7 +1447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4223205570486106}
   m_Layer: 0
-  m_Name: Shop Selection
+  m_Name: Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1612,7 +1612,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1315194156372728}
   m_LocalRotation: {x: -0.00092993677, y: -0.82821673, z: -0.53808236, w: -0.15660009}
-  m_LocalPosition: {x: -1.1, y: 0.7, z: -10}
+  m_LocalPosition: {x: -1.1, y: 0.75, z: -10}
   m_LocalScale: {x: 0.5200858, y: 0.5200857, z: 0.5200857}
   m_Children:
   - {fileID: 4682617493630672}
@@ -2064,7 +2064,7 @@ GameObject:
   - component: {fileID: 33830639445736748}
   - component: {fileID: 23335048830978256}
   m_Layer: 0
-  m_Name: energy +1
+  m_Name: Energy +1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2563,9 +2563,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4065686029324144}
-  - component: {fileID: 1783227801}
   m_Layer: 0
-  m_Name: Shop
+  m_Name: Shop Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2586,31 +2585,6 @@ Transform:
   m_Father: {fileID: 4223205570486106}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1783227801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1623120871451580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75d46ed92e5bc42ea9ba827213926659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopButtons:
-  - {fileID: 1142615361867556}
-  - {fileID: 1428807205164630}
-  - {fileID: 1957370818327308}
-  - {fileID: 1647074194314342}
-  - {fileID: 1519338210582350}
-  - {fileID: 1572675948109272}
-  - {fileID: 1739287308586174}
-  - {fileID: 1143424165573212}
-  - {fileID: 1000621732617846}
-  - {fileID: 1199454306863072}
-  textBoxName: {fileID: 102702863046406228}
-  textBoxDescription: {fileID: 102254225529537872}
 --- !u!1 &1624764302995810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2620,6 +2594,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4598428617825470}
+  - component: {fileID: 653910763}
   m_Layer: 0
   m_Name: Shop Manager
   m_TagString: Untagged
@@ -2642,6 +2617,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &653910763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624764302995810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75d46ed92e5bc42ea9ba827213926659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopButtons:
+  - {fileID: 1142615361867556}
+  - {fileID: 1428807205164630}
+  - {fileID: 1957370818327308}
+  - {fileID: 1647074194314342}
+  - {fileID: 1519338210582350}
+  - {fileID: 1572675948109272}
+  - {fileID: 1739287308586174}
+  - {fileID: 1143424165573212}
+  - {fileID: 1000621732617846}
+  - {fileID: 1199454306863072}
+  infoPanelName: {fileID: 102702863046406228}
+  infoPanelDescription: {fileID: 102254225529537872}
+  defaultPlayerShip: {fileID: 11400000, guid: e250df3eb18a74f2c878091db3b17350, type: 2}
+  visualUpgrades:
+  - {fileID: 1088013412868314}
+  - {fileID: 1950579529129072}
+  - {fileID: 1556134829789958}
+  upgradePrefabs:
+  - {fileID: 1102415631060482, guid: 81a0b6bf432b352438dfabcfb953ac18, type: 3}
+  - {fileID: 1734163421600896, guid: 402f6eb9e2864834696c463a73ac435d, type: 3}
+  - {fileID: 1350533636496164, guid: 58ddbb7369857c94cb8d47f5f3a89c64, type: 3}
+  buyButton: {fileID: 1811436229612680}
+  bankText: {fileID: 102653561020829592}
+  androidGameId: 5701316
+  iosGameId: 5701317
+  testMode: 1
 --- !u!1 &1647074194314342
 GameObject:
   m_ObjectHideFlags: 0
@@ -2901,14 +2915,14 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1686112282379002}
-  m_Text: bbb
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
   m_Anchor: 0
   m_Alignment: 0
   m_TabSize: 4
-  m_FontSize: 113
+  m_FontSize: 100
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 0}
@@ -3168,7 +3182,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735884692899478}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.15, y: 0.25, z: -10}
+  m_LocalPosition: {x: -1.15, y: 0.15, z: -10}
   m_LocalScale: {x: 0.8, y: 0.2, z: 1}
   m_Children:
   - {fileID: 4974292480355432}
@@ -3689,14 +3703,14 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1882088331782304}
-  m_Text: aaa
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
   m_Anchor: 0
   m_Alignment: 0
   m_TabSize: 4
-  m_FontSize: 113
+  m_FontSize: 120
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 0}
@@ -3715,7 +3729,7 @@ GameObject:
   - component: {fileID: 33345367522282736}
   - component: {fileID: 23203754062861750}
   m_Layer: 0
-  m_Name: c. Bomb
+  m_Name: Cluster Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

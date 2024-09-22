@@ -6,9 +6,16 @@ public class ShopPiece : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private TextMesh costText;
 
+    private bool sold;
+
     public SOShopSelection ShopSelection {
         get { return shopSelection; }
         set { shopSelection = value; }
+    }
+
+    public bool Sold {
+        get { return sold; }
+        set { sold = value; }
     }
 
     private void Awake()

@@ -4,7 +4,7 @@ using UnityEngine;
 public class SOShopSelection : ScriptableObject
 {
     public Sprite icon;
-    public string iconName;
+    public string upgradeName;
     public string description;
     public int cost;
 }
