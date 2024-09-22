@@ -15,31 +15,20 @@ public class PlayerSpawner : MonoBehaviour
     private void Start()
     {
         CreatePlayer();
-        GetComponentInChildren<Player>().enabled = true;
-        GameManager.Instance.CameraSetup();
     }
 
     private void CreatePlayer()
     {
         // TODO: Definitivamente, mejorar esta función, porque vaya desastre más desastroso
-        if (GameObject.Find("Upgraded Ship")) // TODO: Cambiar esto para que no dependa del nombre
-        {
-            upgradedShip = true;
-        }
-
+        upgradedShip = CheckUpgradedPlayerShip();
+        
         if (!upgradedShip || GameManager.Instance.Died)
         {
             GameManager.Instance.Died = false;
 
             playerShip = Instantiate(actorModel.actor);
-            playerShip.transform.position = transform.position;
-            playerShip.transform.rotation = Quaternion.Euler(180, 270, 0);
             playerShip.GetComponent<Player>().ActorStats(actorModel);
-        }
-        else
-        {
-            playerShip = GameObject.Find("Upgraded Ship"); // TODO: Cambiar esto, repetición de código
-        }   
+        }  
 
         playerShip.transform.position = initialPosition;
         playerShip.transform.rotation = initialRotation;
@@ -49,6 +38,20 @@ public class PlayerSpawner : MonoBehaviour
         
         playerShip.GetComponentInChildren<ParticleSystem>().transform.localScale = thrusterScale;
         playerShip.transform.SetParent(transform);
+
+        GetComponentInChildren<Player>().enabled = true;
         GameManager.Instance.CameraSetup();
+    }
+
+    private bool CheckUpgradedPlayerShip()
+    {
+        GameObject upgradedPlayerShip = GameObject.Find("Upgraded Ship"); // TODO: Cambiar esto para que no dependa del nombre
+        if (!upgradedPlayerShip)
+        {
+           return false;
+        }
+
+        playerShip = upgradedPlayerShip;
+        return true;
     }
 }

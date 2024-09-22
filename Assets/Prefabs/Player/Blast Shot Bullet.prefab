@@ -13,10 +13,9 @@ GameObject:
   - component: {fileID: 23060671561776108}
   - component: {fileID: 54155686407428186}
   - component: {fileID: 136635000644151722}
-  - component: {fileID: -4448058647341185961}
   - component: {fileID: -6607382988580291953}
   m_Layer: 0
-  m_Name: Player Blast Shot Bullet
+  m_Name: Blast Shot Bullet
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,19 +114,6 @@ CapsuleCollider:
   m_Height: 10.48
   m_Direction: 0
   m_Center: {x: 14.52649, y: 0.33876002, z: 0.31270003}
---- !u!114 &-4448058647341185961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218136449366864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed406a1a59224c0bba221ddcd9e2503, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blastShotBullet: {fileID: 1218136449366864}
 --- !u!114 &-6607382988580291953
 MonoBehaviour:
   m_ObjectHideFlags: 0

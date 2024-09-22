@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4687647661721664}
   - component: {fileID: 33873644043650096}
   - component: {fileID: 23272412591348308}
+  - component: {fileID: -3419499827898773696}
   m_Layer: 0
   m_Name: Blast Shot
   m_TagString: Untagged
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-3419499827898773696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1102415631060482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed406a1a59224c0bba221ddcd9e2503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blastShotBullet: {fileID: 1218136449366864, guid: c20fc9da48f847d43982d8bf20857fb3, type: 3}
