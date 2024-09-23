@@ -10,12 +10,28 @@ public class ScenesManager : MonoBehaviour
         BootUp,
         Title,
         Shop,
-        TestLevel,
         Level1,
         Level2,
         Level3,
-        GameOver
-    }    
+        GameOver,
+        TestLevel
+    } 
+
+    private float gameTimer = 0;
+    private float[] endLevelTimer = {30, 30, 45};
+    private Scenes currentScene;
+    private bool gameEnding = false;
+
+    private void Update()
+    {
+        // TODO: Mirar si realmente hace falta en el update o lo puedo programar cada vez que se cambia de escena
+        int currentSceneBuildIndex = SceneManager.GetActiveScene().buildIndex;
+        if ((int)currentScene != currentSceneBuildIndex)
+        {
+            currentScene = (Scenes)currentSceneBuildIndex;
+        }
+        GameTimer();
+    }
 
     public void ResetCurrentScene() 
     {
@@ -30,5 +46,37 @@ public class ScenesManager : MonoBehaviour
     public void BeginGame()
     {
         SceneManager.LoadScene(Scenes.TestLevel.ToString());
+    }
+
+    private void GameTimer()
+    {
+        switch (currentScene)
+        {
+            case Scenes.Level1 | Scenes.Level2 | Scenes.Level3 :
+                if (gameTimer < endLevelTimer[(int)currentScene - 3])
+                {
+                    // Level has not been completed
+                    gameTimer += Time.deltaTime;
+                }
+                else
+                {
+                    if (!gameEnding)
+                    {
+                        gameEnding = true;
+                        PlayerTransition playerTransition = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerTransition>();
+                        if (!currentScene.ToString().Equals("Level3"))
+                        {
+                            playerTransition.LevelEnds = true;
+                        }
+                        else
+                        {
+                            playerTransition.GameCompleted = true;
+                        }
+                        Invoke("NextLevel", 4);
+                    }
+                }
+
+                break;
+        }
     }
 }

@@ -35,6 +35,7 @@ public class PlayerSpawner : MonoBehaviour
         playerShip.transform.localScale = playerScale;
 
         playerShip.name = PLAYER_NAME;
+        playerShip.GetComponent<PlayerTransition>().enabled = true;
         
         playerShip.GetComponentInChildren<ParticleSystem>().transform.localScale = thrusterScale;
         playerShip.transform.SetParent(transform);

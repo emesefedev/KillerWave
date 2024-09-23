@@ -5037,3 +5037,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be6b6c80e50e49a49441ca65c39c258, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerComponent: {fileID: -7812199364079361368}
+  sphereCollider: {fileID: 4605482744716308881}
