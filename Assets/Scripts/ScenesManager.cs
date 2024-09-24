@@ -13,8 +13,7 @@ public class ScenesManager : MonoBehaviour
         Level1,
         Level2,
         Level3,
-        GameOver,
-        TestLevel
+        GameOver
     } 
 
     private float gameTimer = 0;
@@ -35,7 +34,8 @@ public class ScenesManager : MonoBehaviour
 
     public void ResetCurrentScene() 
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameTimer = 0;
+        SceneManager.LoadScene((int)currentScene);
     }
 
     public void GameOver()
@@ -43,9 +43,16 @@ public class ScenesManager : MonoBehaviour
         SceneManager.LoadScene(Scenes.GameOver.ToString());
     }
 
-    public void BeginGame()
+    public void BeginGame(int gameLevel)
     {
-        SceneManager.LoadScene(Scenes.TestLevel.ToString());
+        SceneManager.LoadScene(gameLevel);
+    }
+
+    private void NextLevel()
+    {
+        gameEnding = false;
+        gameTimer = 0;
+        SceneManager.LoadScene((int)currentScene + 1);
     }
 
     private void GameTimer()

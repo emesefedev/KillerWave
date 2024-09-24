@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
 
-    public static Scenes currentScene;
+    public static Scenes currentScene; // TODO: La currentScene la detecta ScenesManager
 
     public static int playerLives = 3;
 
@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
         set { died = value; }
     }
 
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private Light directionalLight;
+    [SerializeField] private Camera mainCamera; // To do: me tocará obtener referencia por código    
+    [SerializeField] private Light directionalLight; // To do: me tocará obtener referencia por código
     private Vector3 initialCameraPosition = new Vector3(0, 0, -300);
 
     private Vector3 directionalLightRotation = new Vector3(50, -30, 0);
@@ -32,12 +32,6 @@ public class GameManager : MonoBehaviour
         CheckGameManagerIsInScene();
         currentScene = (Scenes) SceneManager.GetActiveScene().buildIndex;
         CameraAndLightSetup(currentScene);
-    }
-
-    private void Start()
-    {
-        CameraSetup();
-        LightSetup();
     }
 
     private void CheckGameManagerIsInScene()
@@ -73,7 +67,6 @@ public class GameManager : MonoBehaviour
     {
         switch (currentScene)
         {
-            case Scenes.TestLevel : 
             case Scenes.Level1 : 
             case Scenes.Level2 : 
             case Scenes.Level3 : 
@@ -103,5 +96,10 @@ public class GameManager : MonoBehaviour
     public ScoreManager GetScoreManager()
     {
         return scoreManager;
+    }
+
+    public ScenesManager GetScenesManager()
+    {
+        return scenesManager;
     }
 }

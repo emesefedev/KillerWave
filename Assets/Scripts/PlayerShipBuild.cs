@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Advertisements;
 using System.Collections;
+using UnityEditor.SearchService;
 
 public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
@@ -286,7 +287,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         }
 
         // TODO: Cambiar esto
-        UnityEngine.SceneManagement.SceneManager.LoadScene("TestLevel");
+        GameManager.Instance.GetScenesManager().BeginGame((int)ScenesManager.Scenes.Level1);
     }
 
     #endregion

@@ -41,7 +41,6 @@ public class PlayerSpawner : MonoBehaviour
         playerShip.transform.SetParent(transform);
 
         GetComponentInChildren<Player>().enabled = true;
-        GameManager.Instance.CameraSetup();
     }
 
     private bool CheckUpgradedPlayerShip()
