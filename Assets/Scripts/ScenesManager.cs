@@ -21,6 +21,11 @@ public class ScenesManager : MonoBehaviour
     private Scenes currentScene;
     private bool gameEnding = false;
 
+    private void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
     private void Update()
     {
         // TODO: Mirar si realmente hace falta en el update o lo puedo programar cada vez que se cambia de escena
@@ -30,6 +35,15 @@ public class ScenesManager : MonoBehaviour
             currentScene = (Scenes)currentSceneBuildIndex;
         }
         GameTimer();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // TODO: Mejorar esto, porque creo que tengo un spaghetti
+        GameManager.Instance.SetLivesDisplay(GameManager.playerLives);
+        
+        ScoreManager scoreManager = GameManager.Instance.GetScoreManager();
+        scoreManager.UpdateScoreUI(ScoreManager.PlayerScore);
     }
 
     public void ResetCurrentScene() 

@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private ScenesManager scenesManager;
     [SerializeField] private ScoreManager scoreManager;
+    
+    [SerializeField] private GameObject lifePrefab;
 
     private bool died = false;
     public bool Died {
@@ -32,6 +34,39 @@ public class GameManager : MonoBehaviour
         CheckGameManagerIsInScene();
         currentScene = (Scenes) SceneManager.GetActiveScene().buildIndex;
         CameraAndLightSetup(currentScene);
+    }
+
+    private void Start()
+    {
+        SetLivesDisplay(playerLives);
+    }
+
+    public void SetLivesDisplay(int lives)
+    {
+        GameObject livesGameObject = GameObject.FindGameObjectWithTag("LivesUI");
+        if (livesGameObject != null)
+        {
+            if (livesGameObject.transform.childCount < 1)
+            {
+                // Al entrar en este if, asumimos que es el principio de un nivel
+                for (int i = 0; i < 5; i++)
+                {
+                    GameObject life = Instantiate(lifePrefab);
+                    life.transform.SetParent(livesGameObject.transform);
+                }
+            }
+
+            int totalChildren = livesGameObject.transform.childCount;
+            for (int i = 0; i < totalChildren; i++)
+            {
+                livesGameObject.transform.GetChild(i).gameObject.SetActive(true);
+            }
+
+            for (int i = 0; i < (totalChildren - lives); i++)
+            {
+                livesGameObject.transform.GetChild(totalChildren - i - 1).gameObject.SetActive(false);
+            }
+        }
     }
 
     private void CheckGameManagerIsInScene()

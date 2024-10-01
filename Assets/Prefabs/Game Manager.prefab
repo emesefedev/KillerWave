@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scenesManager: {fileID: 4798965790268363229}
   scoreManager: {fileID: 4798965790268363230}
+  livesGameObject: {fileID: 0}
+  lifePrefab: {fileID: 1716281752039382452, guid: fd046cb686ad547d8862c51fa1cf8d81, type: 3}
   mainCamera: {fileID: 0}
   directionalLight: {fileID: 0}
 --- !u!114 &4798965790268363229

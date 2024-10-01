@@ -69,8 +69,9 @@ public class PlayerTransition : MonoBehaviour
     private void PlayerMovement(Vector3 point, float transitionSpeed)
     {
         Vector3 localPosition = transform.localPosition;
-        if (Mathf.Round(localPosition.x) >= readyPosition.x - 5 && 
-            Mathf.Round(localPosition.x) <= readyPosition.x + 5 &&
+
+        if (Mathf.Round(localPosition.x) >= point.x - 5 && 
+            Mathf.Round(localPosition.x) <= point.x + 5 &&
             Mathf.Round(localPosition.y) >= -5f && 
             Mathf.Round(localPosition.y) <= 5f)
         {

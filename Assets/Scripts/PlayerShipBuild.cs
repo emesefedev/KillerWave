@@ -286,7 +286,6 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
             DontDestroyOnLoad(playerShip);
         }
 
-        // TODO: Cambiar esto
         GameManager.Instance.GetScenesManager().BeginGame((int)ScenesManager.Scenes.Level1);
     }
 

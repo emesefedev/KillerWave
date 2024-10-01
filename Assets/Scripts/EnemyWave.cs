@@ -5,7 +5,7 @@ public class EnemyWave : MonoBehaviour, IActorTemplate
     private int speed;
     private int health;
     private int hitPower;
-    private int score;
+    private int score; 
 
     private int bulletSpeed;
     

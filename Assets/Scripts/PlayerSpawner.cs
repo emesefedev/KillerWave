@@ -39,8 +39,6 @@ public class PlayerSpawner : MonoBehaviour
         
         playerShip.GetComponentInChildren<ParticleSystem>().transform.localScale = thrusterScale;
         playerShip.transform.SetParent(transform);
-
-        GetComponentInChildren<Player>().enabled = true;
     }
 
     private bool CheckUpgradedPlayerShip()
