@@ -1,10 +1,12 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopPiece : MonoBehaviour
 {
     [SerializeField] private SOShopSelection shopSelection;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private TextMesh costText;
+    [SerializeField] private Image powerupIconImage;
+    [SerializeField] private TextMeshProUGUI costText;
 
     private bool sold;
 
@@ -20,14 +22,16 @@ public class ShopPiece : MonoBehaviour
 
     private void Awake()
     {
-        if (spriteRenderer != null)
+        if (powerupIconImage != null)
         {
-            spriteRenderer.sprite = shopSelection.icon;
+            powerupIconImage.sprite = shopSelection.icon;
         }
 
         if (costText != null)
         {
-            costText.text = shopSelection.cost.ToString();
+            costText.text = shopSelection.upgradeName != "Sold Out" 
+                ? shopSelection.cost.ToString()
+                : "SOLD OUT";
         }
     }
 }
