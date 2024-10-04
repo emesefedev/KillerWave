@@ -5113,6 +5113,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+--- !u!1 &1783227779 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1950579529129072, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+  m_PrefabInstance: {fileID: 1783227778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1783227780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1088013412868314, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+  m_PrefabInstance: {fileID: 1783227778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1783227781 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1556134829789958, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+  m_PrefabInstance: {fileID: 1783227778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1783227782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1253410048647078, guid: 719e15d0742034c4e95c1ed63e7a2d66, type: 3}
+  m_PrefabInstance: {fileID: 1783227778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1783227783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783227782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66fdb6e4fc5c2422b809a35342f9998e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopButtons: []
+  infoPanelName: {fileID: 1587153907}
+  infoPanelDescription: {fileID: 2086037469}
+  visualUpgrades:
+  - {fileID: 1783227781}
+  - {fileID: 1783227780}
+  - {fileID: 1783227779}
+  upgradePrefabs:
+  - {fileID: 1350533636496164, guid: 58ddbb7369857c94cb8d47f5f3a89c64, type: 3}
+  - {fileID: 1102415631060482, guid: 81a0b6bf432b352438dfabcfb953ac18, type: 3}
+  - {fileID: 1734163421600896, guid: 402f6eb9e2864834696c463a73ac435d, type: 3}
+  defaultPlayerShip: {fileID: 11400000, guid: e250df3eb18a74f2c878091db3b17350, type: 2}
+  buyButton: {fileID: 648212215}
+  bankText: {fileID: 243148847}
+  androidGameId: 
+  iOSGameId: 
+  testMode: 1
 --- !u!1 &1913971636
 GameObject:
   m_ObjectHideFlags: 0

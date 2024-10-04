@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Advertisements;
-using UnityEngine.UI;
+using TMPro;
 
 public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
@@ -9,8 +9,8 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
     private GameObject target;
     private GameObject currentSelection;
 
-    [SerializeField] private TextMesh infoPanelName;
-    [SerializeField] private TextMesh infoPanelDescription;
+    [SerializeField] private TextMeshProUGUI infoPanelName;
+    [SerializeField] private TextMeshProUGUI infoPanelDescription;
 
     [SerializeField] GameObject[] visualUpgrades;
     [SerializeField] private GameObject[] upgradePrefabs;
@@ -18,7 +18,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
     private GameObject playerShip;
 
     [SerializeField] private GameObject buyButton;
-    [SerializeField] private TextMesh bankText;
+    [SerializeField] private TextMeshProUGUI bankText;
     private int bank = 2000; //TODO: En un futuro, cambiar a 0
     private bool purchaseMade = false;
 
@@ -305,7 +305,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
     private void SoldUpgrade(ShopPiece shopPiece)
     {
         shopPiece.Sold = true;
-        currentSelection.transform.parent.transform.GetComponentInChildren<TextMesh>().text = "SOLD";
+        currentSelection.transform.parent.transform.GetComponentInChildren<TextMeshProUGUI>().text = "SOLD";
     }
 
     #endregion
