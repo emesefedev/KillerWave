@@ -1,33 +1,32 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.Advertisements;
-using UnityEngine.UI;
+using System.Collections;
 
-public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
+public class PlayerShipBuild_OLD : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
     [SerializeField] private GameObject[] shopButtons;
     private GameObject target;
     private GameObject currentSelection;
-
+    private int rayDistance = 100;
+    
     [SerializeField] private TextMesh infoPanelName;
     [SerializeField] private TextMesh infoPanelDescription;
 
-    [SerializeField] GameObject[] visualUpgrades;
+    [SerializeField] private SOActorModel defaultPlayerShip;
+    [SerializeField] private GameObject[] visualUpgrades;
     [SerializeField] private GameObject[] upgradePrefabs;
-    [SerializeField] SOActorModel defaultPlayerShip;
     private GameObject playerShip;
-
+    
     [SerializeField] private GameObject buyButton;
     [SerializeField] private TextMesh bankText;
-    private int bank = 2000; //TODO: En un futuro, cambiar a 0
-    private bool purchaseMade = false;
+    private int bank = 2000;
+    private bool purchaseMade;
 
     [SerializeField] private string androidGameId;
-    [SerializeField] private string iOSGameId;
+    [SerializeField] private string iosGameId;
     [SerializeField] private bool testMode = true;
-    private string adId = null;
+    private string adId;
     private int watchedAdAward = 300;
-
 
     private void Awake()
     {
@@ -37,17 +36,20 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
     private void Start()
     {
         purchaseMade = false;
-        
+
         TurnOffSelectionHighlights();
-
+        
         UpdateBankText();
-
+        
         TurnOffPlayerShipVisualUpgrades();
         PreparePlayerShipForUpgrade();
 
         StartCoroutine(WaitForAd());
+    }
 
-        buyButton.SetActive(false);        
+    private void Update()
+    {
+        AttemptSelection();
     }
 
     #region ADVERTISEMENT
@@ -57,7 +59,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
 
         #if UNITY_IOS
         {
-            gameId = iOSGameId;
+            gameId = iosGameId;
             adId = "Rewarded_iOS";
         }
         #elif UNITY_ANDROID
@@ -66,7 +68,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
             adId = "Rewarded_Android";
         }
         #endif
-        
+
         Advertisement.Initialize(gameId, testMode, this);
     }
 
@@ -92,8 +94,8 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
 
     public void OnInitializationComplete()
     {
-        Debug.Log("Unity Ads initialization complete"); 
-    }
+       Debug.Log("Unity Ads initialization complete"); 
+    }  
 
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
@@ -112,7 +114,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
 
     public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
     {
-        
+        Debug.Log($"Unity Ads show failed: {error} - {message}"); 
     }
 
     public void OnUnityAdsShowStart(string placementId)
@@ -138,50 +140,73 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
                 break;
         }
 
-        Advertisement.Load(placementId, this);
+        Advertisement.Load(adId, this);
         TurnOffSelectionHighlights();
     }
 
-    #endregion
-    
-    #region BANK
-    private void UpdateBank(int quantity)
-    {
-        bank += quantity;
-        UpdateBankText();
-    }
+    #endregion 
 
-    private void UpdateBankText()
-    {
-        bankText.text = bank.ToString();
-    }
-
-    #endregion
-    
     #region SHOP BUTTONS
     private void TurnOffSelectionHighlights()
     {
-        // TODO: Comprobar el funcionamiento de esta función, porque no sé si es lo que se busca (código original en el txt PlayerShipBuild)
         foreach (GameObject shopButton in shopButtons)
         {
-            ShopPiece shopPiece = shopButton.GetComponent<ShopPiece>();
-            if (shopPiece)
+            shopButton.SetActive(false);
+        }
+    }
+
+    private void AttemptSelection()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            target = ReturnClickedObject(out hit); // TODO: ¿El out RaycastHit se utiliza para algo? Comprobar tras finalizar
+
+            if (target != null)
             {
-                if (shopPiece.Sold)
+                // TODO: Mejorar la forma de identificar los botones
+                ShopPiece shopPiece = target.GetComponent<ShopPiece>();
+                if (shopPiece)
                 {
-                    shopButton.SetActive(false);
+                    SelectUpgrade(shopPiece);
                 }
+                else if (target.name.Equals("Buy Button"))
+                {
+                    BuyUpgrade();
+                }
+                else if (target.name.Equals("Start"))
+                {
+                    StartGame();
+                } 
+                else if (target.name.Equals("Watch Ad"))
+                {
+                    WatchAd();
+                }  
             }
         }
     }
 
-    //Antiguo Attempt Selection. No sé si esto funcionará con el parámetro. Está por ver
+    private GameObject ReturnClickedObject(out RaycastHit hit)
+    {
+        GameObject clickedObject = null;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray.origin, ray.direction * rayDistance, out hit))
+        {
+            clickedObject = hit.collider.gameObject;
+        }
+
+        return clickedObject;
+    }
+
     private void SelectUpgrade(ShopPiece shopPiece)
     {
-        TurnOffSelectionHighlights(); 
+        TurnOffSelectionHighlights();
+        Select(); 
         UpdateInfoPanel(shopPiece);
 
-        if (!shopPiece.Sold) 
+        //string costText = target.transform.GetChild(1).GetComponent<TextMesh>().text;
+        if (!shopPiece.Sold)//(costText != "SOLD") 
         {
             CheckUpgradeAffordable(shopPiece);
         }
@@ -191,10 +216,10 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         }
     }
 
-    private void ClearInfoPanel()
+    private void Select()
     {
-        infoPanelName.text = "";
-        infoPanelDescription.text = "";
+        currentSelection = target.transform.GetChild(2).gameObject;
+        currentSelection.SetActive(true);
     }
 
     private void UpdateInfoPanel(ShopPiece shopPiece)
@@ -217,7 +242,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
             Debug.Log("Can't Buy");
         }
     }
-    
+
     private void UpgradeSoldOut()
     {
         Debug.Log("SOLD OUT");
@@ -231,15 +256,13 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         buyButton.SetActive(false);
         currentSelection.SetActive(false);
 
-        ClearInfoPanel();
-        
         //TODO: Mejorar esto para que no dependa de los nombres (strings) de los SO
         ShopPiece currentShopPiece = currentSelection.GetComponentInParent<ShopPiece>();
-        foreach (GameObject visualUpgrade in visualUpgrades)
-        {
-            if (visualUpgrade.name.Equals(currentShopPiece.ShopSelection.upgradeName))
+        for (int i = 0; i < visualUpgrades.Length; i++)
+        {   
+            if (visualUpgrades[i].name.Equals(currentShopPiece.ShopSelection.upgradeName))
             {
-                visualUpgrade.SetActive(true);
+                visualUpgrades[i].SetActive(true);
             }
         }
 
@@ -254,14 +277,11 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
     {
         if (purchaseMade)
         {
-            playerShip.name = "Upgraded Ship";
-
             // TODO: Buscar una forma mejor de hacer esto
             if (playerShip.transform.Find("Energy +1(Clone)"))
             {
                 playerShip.GetComponent<Player>().Health += 1;
             }
-
             DontDestroyOnLoad(playerShip);
         }
 
@@ -270,7 +290,23 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
 
     #endregion
 
+    #region BANK
+
+    private void UpdateBank(int quantity)
+    {
+        bank += quantity;
+        UpdateBankText();
+    }
+
+    private void UpdateBankText()
+    {
+        bankText.text = bank.ToString();
+    }
+
+    #endregion
+
     #region PLAYER UPGRADES
+
     private void TurnOffPlayerShipVisualUpgrades()
     {
         foreach (GameObject visualUpgrade in visualUpgrades)
@@ -282,14 +318,16 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
     private void PreparePlayerShipForUpgrade()
     {
         playerShip = Instantiate(defaultPlayerShip.actor);
+        playerShip.name = "Upgraded Ship";
+
         playerShip.GetComponent<Player>().enabled = false;
-        playerShip.transform.position = new Vector3(0, 10000, 0); //TODO: Avoid magic numbers
+        playerShip.transform.position = new Vector3(0, 10000, 0);
         playerShip.GetComponent<IActorTemplate>().ActorStats(defaultPlayerShip);
     }
 
+    //TODO: Mejorar la forma en que se relacionan los prefabs con la mejora elegida
     private void UpgradeShip(ShopPiece shopPiece)
     {
-        //TODO: Hacer un for con break porque esto es una búsqueda. Mejorar esto para que no dependa del nombre
         foreach (GameObject weapon in upgradePrefabs)
         {
             GameObject shipUgrade;
@@ -310,5 +348,4 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
 
     #endregion
 
-    
 }

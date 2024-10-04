@@ -286,7 +286,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4598428617825470}
-  - component: {fileID: 653910763}
   m_Layer: 0
   m_Name: Shop Manager
   m_TagString: Untagged
@@ -309,45 +308,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &653910763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1624764302995810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75d46ed92e5bc42ea9ba827213926659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopButtons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  infoPanelName: {fileID: 0}
-  infoPanelDescription: {fileID: 0}
-  defaultPlayerShip: {fileID: 11400000, guid: e250df3eb18a74f2c878091db3b17350, type: 2}
-  visualUpgrades:
-  - {fileID: 1088013412868314}
-  - {fileID: 1950579529129072}
-  - {fileID: 1556134829789958}
-  upgradePrefabs:
-  - {fileID: 1102415631060482, guid: 81a0b6bf432b352438dfabcfb953ac18, type: 3}
-  - {fileID: 1734163421600896, guid: 402f6eb9e2864834696c463a73ac435d, type: 3}
-  - {fileID: 1350533636496164, guid: 58ddbb7369857c94cb8d47f5f3a89c64, type: 3}
-  buyButton: {fileID: 0}
-  bankText: {fileID: 0}
-  androidGameId: 5701316
-  iosGameId: 5701317
-  testMode: 1
 --- !u!1 &1950579529129072
 GameObject:
   m_ObjectHideFlags: 0
