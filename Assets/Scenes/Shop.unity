@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1802526, g: 0.22566971, b: 0.30688787, a: 1}
+  m_IndirectSpecularColor: {r: 0.18025254, g: 0.22566965, b: 0.30688784, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5157,6 +5157,8 @@ MonoBehaviour:
   buyButton: {fileID: 648212217}
   infoPanelName: {fileID: 1587153907}
   infoPanelDescription: {fileID: 2086037469}
+  defaultInfoPanelName: 'Officer:'
+  defaultInfoPanelDescription: Will you need any upgrades before launch?
   visualUpgrades:
   - {fileID: 1783227781}
   - {fileID: 1783227780}

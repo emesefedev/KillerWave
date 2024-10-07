@@ -18,6 +18,8 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
     [Header("Info Panel")]
     [SerializeField] private TextMeshProUGUI infoPanelName;
     [SerializeField] private TextMeshProUGUI infoPanelDescription;
+    [SerializeField] private string defaultInfoPanelName;
+    [TextArea][SerializeField] private string defaultInfoPanelDescription;
 
     [Header("Upgrades")]
     [SerializeField] GameObject[] visualUpgrades;
@@ -50,14 +52,13 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         
         TurnOffSelectionHighlights();
 
+        ShowDefaultInfoPanel();
         UpdateBankText();
 
         TurnOffPlayerShipVisualUpgrades();
         PreparePlayerShipForUpgrade();
 
-        StartCoroutine(WaitForAd());
-
-        buyButton.gameObject.SetActive(false);        
+        StartCoroutine(WaitForAd());     
     }
 
     #region ADVERTISEMENT
@@ -149,7 +150,6 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         }
 
         Advertisement.Load(placementId, this);
-        TurnOffSelectionHighlights();
     }
 
     #endregion
@@ -193,7 +193,6 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
             {
                 if (shopPiece.Sold)
                 {
-                    Debug.Log("vendidito");
                     upgradeButton.transform.GetChild(2).gameObject.SetActive(false);
                 }
             }
@@ -203,8 +202,6 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
     //Antiguo Attempt Selection. No sé si esto funcionará con el parámetro. Está por ver
     public void SelectUpgrade(ShopPiece shopPiece, GameObject butttonGameObject)
     {
-        TurnOffSelectionHighlights(); 
-
         currentSelection = butttonGameObject;
         currentSelection.transform.GetChild(1).gameObject.SetActive(true);
 
@@ -220,16 +217,17 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         }
     }
 
-    private void ClearInfoPanel()
-    {
-        infoPanelName.text = "";
-        infoPanelDescription.text = "";
-    }
-
     private void UpdateInfoPanel(ShopPiece shopPiece)
     {
         infoPanelName.text = shopPiece.ShopSelection.upgradeName;
         infoPanelDescription.text = shopPiece.ShopSelection.description;
+    }
+
+    private void ShowDefaultInfoPanel()
+    {
+        infoPanelName.text = defaultInfoPanelName;
+        infoPanelDescription.text = defaultInfoPanelDescription;
+        buyButton.gameObject.SetActive(false);
     }
 
     private void CheckUpgradeAffordable(ShopPiece shopPiece)
@@ -257,10 +255,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         Debug.Log("Purchase made");
         purchaseMade = true;
 
-        buyButton.gameObject.SetActive(false);
-        currentSelection.SetActive(false);
-
-        ClearInfoPanel();
+        ShowDefaultInfoPanel();
         
         //TODO: Mejorar esto para que no dependa de los nombres (strings) de los SO
         ShopPiece currentShopPiece = currentSelection.GetComponentInParent<ShopPiece>();
@@ -277,6 +272,8 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         UpdateBank(-currentShopPiece.ShopSelection.cost);
 
         SoldUpgrade(currentShopPiece);
+
+        TurnOffSelectionHighlights();
     }
 
     public void StartGame()
