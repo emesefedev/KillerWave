@@ -1831,7 +1831,6 @@ GameObject:
   - component: {fileID: 709164574}
   - component: {fileID: 709164577}
   - component: {fileID: 709164576}
-  - component: {fileID: 709164575}
   m_Layer: 5
   m_Name: Watch Ad
   m_TagString: Untagged
@@ -1862,21 +1861,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &709164575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 709164573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 557bdbc41a41b4870bb349dad82dcc11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopSelection: {fileID: 11400000, guid: be5e247097ebd468db9ccc0e1420f523, type: 2}
-  powerupIconImage: {fileID: 0}
-  costText: {fileID: 1956575236}
 --- !u!114 &709164576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3354,7 +3338,6 @@ GameObject:
   - component: {fileID: 1097252278}
   - component: {fileID: 1097252281}
   - component: {fileID: 1097252280}
-  - component: {fileID: 1097252279}
   m_Layer: 5
   m_Name: Start
   m_TagString: Untagged
@@ -3385,21 +3368,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1097252279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1097252277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 557bdbc41a41b4870bb349dad82dcc11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopSelection: {fileID: 11400000, guid: be5e247097ebd468db9ccc0e1420f523, type: 2}
-  powerupIconImage: {fileID: 0}
-  costText: {fileID: 1240682682}
 --- !u!114 &1097252280
 MonoBehaviour:
   m_ObjectHideFlags: 0
