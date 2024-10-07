@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18025254, g: 0.22566965, b: 0.30688784, a: 1}
+  m_IndirectSpecularColor: {r: 0.1802526, g: 0.22566971, b: 0.30688787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 36349089}
   - component: {fileID: 36349088}
   m_Layer: 5
-  m_Name: Background
+  m_Name: Buttons Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5145,7 +5145,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66fdb6e4fc5c2422b809a35342f9998e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopButtons: []
+  upgradeButtons:
+  - {fileID: 1982278563}
+  - {fileID: 1001890136}
+  - {fileID: 1357493567}
+  - {fileID: 1922731777}
+  - {fileID: 842556624}
+  - {fileID: 50838774}
+  watchAdButton: {fileID: 709164576}
+  startButton: {fileID: 1097252280}
+  buyButton: {fileID: 648212217}
   infoPanelName: {fileID: 1587153907}
   infoPanelDescription: {fileID: 2086037469}
   visualUpgrades:
@@ -5157,10 +5166,9 @@ MonoBehaviour:
   - {fileID: 1102415631060482, guid: 81a0b6bf432b352438dfabcfb953ac18, type: 3}
   - {fileID: 1734163421600896, guid: 402f6eb9e2864834696c463a73ac435d, type: 3}
   defaultPlayerShip: {fileID: 11400000, guid: e250df3eb18a74f2c878091db3b17350, type: 2}
-  buyButton: {fileID: 648212215}
   bankText: {fileID: 243148847}
-  androidGameId: 
-  iOSGameId: 
+  androidGameId: 5701316
+  iOSGameId: 5701317
   testMode: 1
 --- !u!1 &1913971636
 GameObject:

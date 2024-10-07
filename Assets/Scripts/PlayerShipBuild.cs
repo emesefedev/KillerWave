@@ -1,27 +1,36 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Advertisements;
 using TMPro;
 
 public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
-    [SerializeField] private GameObject[] shopButtons;
-    private GameObject target;
+    [Header("Buttons")]
+    [SerializeField] private Button[] upgradeButtons;
     private GameObject currentSelection;
 
+    [SerializeField] private Button watchAdButton;
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button buyButton;
+
+
+    [Header("Info Panel")]
     [SerializeField] private TextMeshProUGUI infoPanelName;
     [SerializeField] private TextMeshProUGUI infoPanelDescription;
 
+    [Header("Upgrades")]
     [SerializeField] GameObject[] visualUpgrades;
     [SerializeField] private GameObject[] upgradePrefabs;
     [SerializeField] SOActorModel defaultPlayerShip;
     private GameObject playerShip;
 
-    [SerializeField] private GameObject buyButton;
+    [Header("Bank")]
     [SerializeField] private TextMeshProUGUI bankText;
     private int bank = 2000; //TODO: En un futuro, cambiar a 0
     private bool purchaseMade = false;
 
+    [Header("Ads")]
     [SerializeField] private string androidGameId;
     [SerializeField] private string iOSGameId;
     [SerializeField] private bool testMode = true;
@@ -32,6 +41,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
     private void Awake()
     {
         CheckPlatform();
+        SetupShopButtons();
     }
 
     private void Start()
@@ -47,7 +57,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
 
         StartCoroutine(WaitForAd());
 
-        buyButton.SetActive(false);        
+        buyButton.gameObject.SetActive(false);        
     }
 
     #region ADVERTISEMENT
@@ -85,7 +95,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         Advertisement.Load(adId, this);
     }
 
-    private void WatchAd()
+    public void WatchAd()
     {
         Advertisement.Show(adId, this);
     }
@@ -159,26 +169,45 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
     #endregion
     
     #region SHOP BUTTONS
+    private void SetupShopButtons() 
+    {
+        foreach (Button upgradeButton in upgradeButtons)
+        {
+            upgradeButton.onClick.AddListener(() => {
+                ShopPiece shopPiece = upgradeButton.GetComponent<ShopPiece>();
+                SelectUpgrade(shopPiece, upgradeButton.gameObject);
+            });
+        }
+
+        watchAdButton.onClick.AddListener(WatchAd);
+        startButton.onClick.AddListener(StartGame);
+        buyButton.onClick.AddListener(BuyUpgrade);
+    }
+
     private void TurnOffSelectionHighlights()
     {
-        // TODO: Comprobar el funcionamiento de esta función, porque no sé si es lo que se busca (código original en el txt PlayerShipBuild)
-        foreach (GameObject shopButton in shopButtons)
+        foreach (Button upgradeButton in upgradeButtons)
         {
-            ShopPiece shopPiece = shopButton.GetComponent<ShopPiece>();
+            ShopPiece shopPiece = upgradeButton.GetComponent<ShopPiece>();
             if (shopPiece)
             {
                 if (shopPiece.Sold)
                 {
-                    shopButton.SetActive(false);
+                    Debug.Log("vendidito");
+                    upgradeButton.transform.GetChild(2).gameObject.SetActive(false);
                 }
             }
         }
     }
 
     //Antiguo Attempt Selection. No sé si esto funcionará con el parámetro. Está por ver
-    private void SelectUpgrade(ShopPiece shopPiece)
+    public void SelectUpgrade(ShopPiece shopPiece, GameObject butttonGameObject)
     {
         TurnOffSelectionHighlights(); 
+
+        currentSelection = butttonGameObject;
+        currentSelection.transform.GetChild(1).gameObject.SetActive(true);
+
         UpdateInfoPanel(shopPiece);
 
         if (!shopPiece.Sold) 
@@ -210,7 +239,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         if (bank >= targetCost)
         {
             Debug.Log("Can Buy");
-            buyButton.SetActive(true);
+            buyButton.gameObject.SetActive(true);
         } 
         else 
         {
@@ -223,12 +252,12 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         Debug.Log("SOLD OUT");
     }
 
-    private void BuyUpgrade()
+    public void BuyUpgrade()
     {
         Debug.Log("Purchase made");
         purchaseMade = true;
 
-        buyButton.SetActive(false);
+        buyButton.gameObject.SetActive(false);
         currentSelection.SetActive(false);
 
         ClearInfoPanel();
@@ -250,7 +279,7 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         SoldUpgrade(currentShopPiece);
     }
 
-    private void StartGame()
+    public void StartGame()
     {
         if (purchaseMade)
         {

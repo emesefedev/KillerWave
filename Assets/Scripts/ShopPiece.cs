@@ -29,9 +29,15 @@ public class ShopPiece : MonoBehaviour
 
         if (costText != null)
         {
-            costText.text = shopSelection.upgradeName != "Sold Out" 
-                ? shopSelection.cost.ToString()
-                : "SOLD OUT";
+            if (shopSelection.upgradeName != "Sold Out")
+            {
+                 costText.text = shopSelection.cost.ToString(); 
+            }
+            else
+            {
+                costText.text = "SOLD OUT";
+                sold = true;
+            }
         }
     }
 }
