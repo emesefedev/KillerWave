@@ -15,7 +15,7 @@ public class EnemyWave : MonoBehaviour, IActorTemplate
     private float verticalSine;
     private float time;
 
-    private void Update()
+    private void FixedUpdate()
     {
         Attack();
     }
