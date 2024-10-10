@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class Pause : MonoBehaviour
 {
@@ -12,6 +12,11 @@ public class Pause : MonoBehaviour
     [SerializeField] private Button resumeButton;
     [SerializeField] private Button quitButton;
 
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider sfxSlider;
+
+    [SerializeField] private AudioMixer audioMixer;   
+
     private void Awake()
     {
         pausePanel.SetActive(false);
@@ -21,6 +26,9 @@ public class Pause : MonoBehaviour
         pauseButton.onValueChanged.AddListener((boolValue) => PauseGame());
         resumeButton.onClick.AddListener(ResumeGame);
         quitButton.onClick.AddListener(Quit);
+
+        musicSlider.onValueChanged.AddListener(SetMusicLevelFromSlider);
+        sfxSlider.onValueChanged.AddListener(SetSFXLevelFromSlider);
     }
 
     private void PauseGame()
@@ -43,6 +51,16 @@ public class Pause : MonoBehaviour
 
         GameManager.Instance.GetScoreManager().ResetScore();
         GameManager.Instance.GetScenesManager().BeginGame(0);
+    }
+
+    private void SetMusicLevelFromSlider(float value)
+    {
+        audioMixer.SetFloat("musicVolume", value);
+    }
+
+    private void SetSFXLevelFromSlider(float value)
+    {
+        audioMixer.SetFloat("sfxVolume", value);
     }
 
     private void DelayPauseButtonApperance()

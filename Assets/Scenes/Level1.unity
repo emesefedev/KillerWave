@@ -1633,6 +1633,9 @@ MonoBehaviour:
   pauseIcon: {fileID: 1807768937}
   resumeButton: {fileID: 2004601153}
   quitButton: {fileID: 2020783935}
+  musicSlider: {fileID: 1185741996}
+  sfxSlider: {fileID: 154989439}
+  audioMixer: {fileID: 24100000, guid: e3607de3090dd4f4b914b248f6f3c70a, type: 2}
 --- !u!1 &1145454466
 GameObject:
   m_ObjectHideFlags: 0
