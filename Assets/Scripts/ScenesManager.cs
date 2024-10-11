@@ -120,6 +120,8 @@ public class ScenesManager : MonoBehaviour
                         {
                             playerTransition.GameCompleted = true;
                         }
+
+                        SendInJsonFormat(currentScene.ToString());
                         Invoke("NextLevel", 4);
                     }
                 }
@@ -164,8 +166,20 @@ public class ScenesManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
-    private void OnDestroy()
+    private void SendInJsonFormat(string lastLevel)
     {
-        Debug.Log("Help");
+        if (lastLevel.Equals(Scenes.Level3.ToString()))
+        {
+            GameStats gameStats = new GameStats();
+            gameStats.livesLeft = GameManager.playerLives;
+            gameStats.completedAtTime = System.DateTime.Now.ToString();
+            gameStats.score = ScoreManager.PlayerScore;
+
+            string json = JsonUtility.ToJson(gameStats, true);
+            
+            string path = Application.persistentDataPath + "/GameStatsSaved.json";
+            Debug.Log(path);
+            System.IO.File.WriteAllText(path, json);
+        }
     }
 }
