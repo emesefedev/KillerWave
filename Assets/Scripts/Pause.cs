@@ -29,6 +29,12 @@ public class Pause : MonoBehaviour
 
         musicSlider.onValueChanged.AddListener(SetMusicLevelFromSlider);
         sfxSlider.onValueChanged.AddListener(SetSFXLevelFromSlider);
+
+        float savedMusicVolume = PlayerPrefs.GetFloat("musicVolume");
+        float savedSFXVolume = PlayerPrefs.GetFloat("sfxVolume");
+        
+        musicSlider.value = savedMusicVolume;
+        sfxSlider.value = savedSFXVolume;
     }
 
     private void PauseGame()
@@ -56,11 +62,13 @@ public class Pause : MonoBehaviour
     private void SetMusicLevelFromSlider(float value)
     {
         audioMixer.SetFloat("musicVolume", value);
+        PlayerPrefs.SetFloat("musicVolume", value);
     }
 
     private void SetSFXLevelFromSlider(float value)
     {
         audioMixer.SetFloat("sfxVolume", value);
+        PlayerPrefs.SetFloat("sfxVolume", value);
     }
 
     private void DelayPauseButtonApperance()
