@@ -15,8 +15,9 @@ public class CameraMovement : MonoBehaviour
 	private void Start() 
 	{
         player = FindObjectOfType<Player>();
+        Debug.Log(player);
 
-		Invoke("DelayStart", 7f);
+		Invoke("DelayStart", 4f);
 	}
 
 	private void Update()

@@ -83,13 +83,15 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void CameraSetup() 
+    public void CameraSetup(float cameraSpeed) 
     {
         mainCamera.transform.position = initialCameraPosition;
         mainCamera.transform.rotation = Quaternion.identity;
 
         mainCamera.clearFlags = CameraClearFlags.SolidColor;
         mainCamera.backgroundColor = Color.black;
+
+        mainCamera.GetComponent<CameraMovement>().CameraSpeed = cameraSpeed;
     }
 
     private void LightSetup()
@@ -104,12 +106,14 @@ public class GameManager : MonoBehaviour
         {
             case Scenes.Level1 : 
             case Scenes.Level2 : 
-            case Scenes.Level3 : 
             {
-                CameraSetup();
+                CameraSetup(0);
                 LightSetup();
                 break;
             }
+            case Scenes.Level3 : 
+                CameraSetup(150); // TODO: Eliminar Magic numbers
+                break;
         }
     }
 
