@@ -13,6 +13,9 @@ public class Player : MonoBehaviour, IActorTemplate
     // World space measurements
     private float width;
     private float height;
+    
+    private float cameraTravelSpeed;
+    private float movingScreen;
 
     public int Health {
         get { return health; }
@@ -21,6 +24,11 @@ public class Player : MonoBehaviour, IActorTemplate
     public GameObject Bullet {
         get { return bullet; }
         set { bullet = value; }
+    }
+
+    public float CameraTravelSpeed {
+        get { return cameraTravelSpeed; }
+        set { cameraTravelSpeed = value; }
     }
     
     private void Start()
@@ -31,12 +39,17 @@ public class Player : MonoBehaviour, IActorTemplate
         height = 1 / (worldToViewportPoint.y - 0.5f);
 
         _Player = GameObject.Find("_Player");
+
+        movingScreen = width;
     }
 
     private void Update()
     {
-        Movement();
-        Attack();
+        if (Time.timeScale == 1)
+        {
+            Movement();
+            Attack();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -72,20 +85,29 @@ public class Player : MonoBehaviour, IActorTemplate
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (horizontalInput > 0)
+        if (cameraTravelSpeed > 1)
         {
-            if (transform.localPosition.x < width / 2.5f )
-            {
-                transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
-            }
-        } 
-        else if (horizontalInput < 0)
+            movingScreen = cameraTravelSpeed * Time.deltaTime;
+            transform.position += Vector3.right * movingScreen;
+        }
+        else 
         {
-            if (transform.localPosition.x > -width / 4f)
+            if (horizontalInput > 0)
             {
-                transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
+                if (transform.localPosition.x < width / 2.5f )
+                {
+                    transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
+                }
+            } 
+            else if (horizontalInput < 0)
+            {
+                if (transform.localPosition.x > -width / 4f)
+                {
+                    transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
+                }
             }
         }
+
 
         if (verticalInput > 0)
         {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class ScenesManager : MonoBehaviour
 {
@@ -16,13 +17,26 @@ public class ScenesManager : MonoBehaviour
         GameOver
     } 
 
+    public enum MusicMode
+    {
+        FadeDown,
+        MusicOn,
+        NoSound
+    } 
+
+    private Scenes currentScene;
+    
     private float gameTimer = 0;
     private float[] endLevelTimer = {30, 30, 45};
-    private Scenes currentScene;
+    
     private bool gameEnding = false;
+
+    [SerializeField] private AudioSource musicAudioSource;
+    [SerializeField] private AudioClip levelMusic;
 
     private void Start()
     {
+        StartCoroutine(MusicVolume(MusicMode.MusicOn));
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -37,8 +51,15 @@ public class ScenesManager : MonoBehaviour
         GameTimer();
     }
 
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        StartCoroutine(MusicVolume(MusicMode.MusicOn));
+        
         // TODO: Mejorar esto, porque creo que tengo un spaghetti
         GameManager.Instance.SetLivesDisplay(GameManager.playerLives);
         
@@ -49,6 +70,7 @@ public class ScenesManager : MonoBehaviour
     public void ResetCurrentScene() 
     {
         gameTimer = 0;
+        StartCoroutine(MusicVolume(MusicMode.NoSound));
         SceneManager.LoadScene((int)currentScene);
     }
 
@@ -66,6 +88,7 @@ public class ScenesManager : MonoBehaviour
     {
         gameEnding = false;
         gameTimer = 0;
+        StartCoroutine(MusicVolume(MusicMode.MusicOn));
         SceneManager.LoadScene((int)currentScene + 1);
     }
 
@@ -73,7 +96,9 @@ public class ScenesManager : MonoBehaviour
     {
         switch (currentScene)
         {
-            case Scenes.Level1 | Scenes.Level2 | Scenes.Level3 :
+            case Scenes.Level1:
+            case Scenes.Level2:   
+            case Scenes.Level3:    
                 if (gameTimer < endLevelTimer[(int)currentScene - 3])
                 {
                     // Level has not been completed
@@ -81,6 +106,8 @@ public class ScenesManager : MonoBehaviour
                 }
                 else
                 {
+                    StartCoroutine(MusicVolume(MusicMode.FadeDown));
+
                     if (!gameEnding)
                     {
                         gameEnding = true;
@@ -93,11 +120,66 @@ public class ScenesManager : MonoBehaviour
                         {
                             playerTransition.GameCompleted = true;
                         }
+
+                        SendInJsonFormat(currentScene.ToString());
                         Invoke("NextLevel", 4);
                     }
                 }
 
+                if (musicAudioSource.clip == null)
+                {
+                    Debug.Log("Must add clip");
+                    musicAudioSource.clip = levelMusic;
+                    musicAudioSource.Play();
+                }
+
                 break;
+        }
+    }
+
+    // TODO: no acabo de entender por qué es una corrutina
+    private IEnumerator MusicVolume(MusicMode mode) 
+    {
+        switch (mode)
+        {
+            case MusicMode.NoSound:
+                musicAudioSource.Stop();
+                break;
+            
+            case MusicMode.FadeDown:
+                musicAudioSource.volume -= Time.deltaTime / 3;
+                break;
+
+            case MusicMode.MusicOn:
+                if (musicAudioSource.clip)
+                {
+                    musicAudioSource.Play();
+                    musicAudioSource.volume = 1;    
+                }
+                break;
+
+            default:
+                musicAudioSource.clip = null;
+                break;
+        }
+
+        yield return new WaitForSeconds(0.1f);
+    }
+
+    private void SendInJsonFormat(string lastLevel)
+    {
+        if (lastLevel.Equals(Scenes.Level3.ToString()))
+        {
+            GameStats gameStats = new GameStats();
+            gameStats.livesLeft = GameManager.playerLives;
+            gameStats.completedAtTime = System.DateTime.Now.ToString();
+            gameStats.score = ScoreManager.PlayerScore;
+
+            string json = JsonUtility.ToJson(gameStats, true);
+            
+            string path = Application.persistentDataPath + "/GameStatsSaved.json";
+            Debug.Log(path);
+            System.IO.File.WriteAllText(path, json);
         }
     }
 }
