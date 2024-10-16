@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4186230913799846}
   - component: {fileID: 212516634677444102}
   m_Layer: 10
-  m_Name: radarPoint
+  m_Name: Radar Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
