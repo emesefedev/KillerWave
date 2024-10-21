@@ -17,6 +17,12 @@ public class Player : MonoBehaviour, IActorTemplate
     private float cameraTravelSpeed;
     private float movingScreen;
 
+    private Vector3 direction;
+    [SerializeField] private Rigidbody rigidbody;
+    
+    public static bool mobileMode = false;
+    private float autoAttackRepetitionTime = 0.3f;
+
     public int Health {
         get { return health; }
         set { health = value; }
@@ -41,14 +47,28 @@ public class Player : MonoBehaviour, IActorTemplate
         _Player = GameObject.Find("_Player");
 
         movingScreen = width;
+
+        mobileMode = false;
+        #if UNITY_ANDROID && !UNITY_EDITOR
+            mobileMode = true;
+            InvokeRepeating("Attack", 0, autoAttackRepetitionTime);
+        #endif
     }
 
     private void Update()
     {
         if (Time.timeScale == 1)
         {
-            Movement();
-            Attack();
+            PlayerSpeedWithCamera();
+            if (mobileMode)
+            {
+                MovementMobileControls();
+            }
+            else
+            {
+                Movement();
+                Attack();
+            }
         }
     }
 
@@ -79,18 +99,46 @@ public class Player : MonoBehaviour, IActorTemplate
         }
     }
 
-    private void Movement()
+    private void PlayerSpeedWithCamera()
     {
-        
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
-
         if (cameraTravelSpeed > 1)
         {
             movingScreen = cameraTravelSpeed * Time.deltaTime;
             transform.position += Vector3.right * movingScreen;
         }
-        else 
+    }
+
+    private void MovementMobileControls()
+    {
+        // TODO: Bloquear movimiento horizontal cuando el modo automático de la cámara está activado
+        // TODO: Hacer movimiento por Transform y no por Rigidbody, porque si no tendría que usar el FixedUpdate
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            
+            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(
+                new Vector3(touch.position.x, touch.position.y, 300));
+            touchPosition.z = 0;
+
+            direction = (touchPosition - transform.position).normalized;
+            rigidbody.velocity = new Vector3(direction.x, direction.y, 0) * speed;
+
+            direction.x += movingScreen;
+
+            if (touch.phase == TouchPhase.Ended)
+            {
+                rigidbody.velocity = Vector3.zero;
+            }
+        }
+    }
+
+    private void Movement()
+    {
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        
+        if (cameraTravelSpeed <= 1)
         {
             if (horizontalInput > 0)
             {
@@ -127,7 +175,7 @@ public class Player : MonoBehaviour, IActorTemplate
 
     private void Attack()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") || mobileMode)
         {
             GameObject bulletInstance = Instantiate(bullet, transform.position, Quaternion.identity);
             bulletInstance.transform.SetParent(_Player.transform);
