@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour, IActorTemplate
 {
@@ -11,14 +12,13 @@ public class Player : MonoBehaviour, IActorTemplate
     private GameObject _Player;
 
     // World space measurements
-    private float width;
-    private float height;
+    private GameObject[] screenPoints = new GameObject[2];
     
     private float cameraTravelSpeed;
     private float movingScreen;
 
     private Vector3 direction;
-    [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private Rigidbody playerRigidbody;
     
     public static bool mobileMode = false;
     private float autoAttackRepetitionTime = 0.3f;
@@ -39,14 +39,9 @@ public class Player : MonoBehaviour, IActorTemplate
     
     private void Start()
     {
-        // Independent of screen resolution
-        Vector3 worldToViewportPoint = Camera.main.WorldToViewportPoint(new Vector3(1, 1, 0));
-        width = 1 / (worldToViewportPoint.x - 0.5f);
-        height = 1 / (worldToViewportPoint.y - 0.5f);
-
         _Player = GameObject.Find("_Player");
 
-        movingScreen = width;
+        CalculateBoundaries();
 
         mobileMode = false;
         #if UNITY_ANDROID && !UNITY_EDITOR
@@ -99,12 +94,33 @@ public class Player : MonoBehaviour, IActorTemplate
         }
     }
 
+    private void CalculateBoundaries()
+    {
+        screenPoints[0] = new GameObject("p1");
+        screenPoints[1] = new GameObject("p2");
+
+        Vector3 v1 = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 300));
+        Vector3 v2 = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 300));
+
+        screenPoints[0].transform.position = v1;
+        screenPoints[1].transform.position = v2;
+
+        screenPoints[0].transform.SetParent(transform.parent);
+        screenPoints[1].transform.SetParent(transform.parent);
+
+        movingScreen = screenPoints[1].transform.position.x;
+    }
+
     private void PlayerSpeedWithCamera()
     {
         if (cameraTravelSpeed > 1)
         {
-            movingScreen = cameraTravelSpeed * Time.deltaTime;
-            transform.position += Vector3.right * movingScreen;
+            movingScreen += cameraTravelSpeed * Time.deltaTime;
+            transform.position += Vector3.right * cameraTravelSpeed * Time.deltaTime;
+        }
+        else
+        {
+            movingScreen = 0;
         }
     }
 
@@ -112,7 +128,7 @@ public class Player : MonoBehaviour, IActorTemplate
     {
         // TODO: Bloquear movimiento horizontal cuando el modo automático de la cámara está activado
         // TODO: Hacer movimiento por Transform y no por Rigidbody, porque si no tendría que usar el FixedUpdate
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && EventSystem.current.currentSelectedGameObject == null)
         {
             Touch touch = Input.GetTouch(0);
             
@@ -121,13 +137,13 @@ public class Player : MonoBehaviour, IActorTemplate
             touchPosition.z = 0;
 
             direction = (touchPosition - transform.position).normalized;
-            rigidbody.velocity = new Vector3(direction.x, direction.y, 0) * speed;
+            playerRigidbody.velocity = new Vector3(direction.x, direction.y, 0) * speed;
 
             direction.x += movingScreen;
 
             if (touch.phase == TouchPhase.Ended)
             {
-                rigidbody.velocity = Vector3.zero;
+                playerRigidbody.velocity = Vector3.zero;
             }
         }
     }
@@ -137,36 +153,39 @@ public class Player : MonoBehaviour, IActorTemplate
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
+        float left = screenPoints[0].transform.localPosition.x;
+        float right = screenPoints[1].transform.localPosition.x;
         
-        if (cameraTravelSpeed <= 1)
+        float top = screenPoints[0].transform.localPosition.y;
+        float down = screenPoints[1].transform.localPosition.y;
+
+        
+        if (horizontalInput > 0)
         {
-            if (horizontalInput > 0)
+            if (transform.localPosition.x < (right - right / 5f) + movingScreen)
             {
-                if (transform.localPosition.x < width / 2.5f )
-                {
-                    transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
-                }
-            } 
-            else if (horizontalInput < 0)
+                transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
+            }
+        } 
+        else if (horizontalInput < 0)
+        {
+            if (transform.localPosition.x > (left - left / 5f) + movingScreen)
             {
-                if (transform.localPosition.x > -width / 4f)
-                {
-                    transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
-                }
+                transform.localPosition += new Vector3(horizontalInput * speed * Time.deltaTime, 0, 0);
             }
         }
 
 
         if (verticalInput > 0)
         {
-            if (transform.localPosition.y < height / 2.5f)
+            if (transform.localPosition.y < (top - top / 3f))
             {
                 transform.localPosition += new Vector3(0, verticalInput * speed * Time.deltaTime, 0);
             }
         }
         else if (verticalInput < 0)
         {
-            if (transform.localPosition.y > -height / 6f)
+            if (transform.localPosition.y > (down - down / 1.5f))
             {
                 transform.localPosition += new Vector3(0, verticalInput * speed * Time.deltaTime, 0);
             }
