@@ -23,6 +23,8 @@ public class Player : MonoBehaviour, IActorTemplate
     public static bool mobileMode = false;
     private float autoAttackRepetitionTime = 0.3f;
 
+    [SerializeField] private GameObject explosion;
+
     public int Health {
         get { return health; }
         set { health = value; }
@@ -222,6 +224,9 @@ public class Player : MonoBehaviour, IActorTemplate
 
     public void Die()
     {
-        GameManager.Instance.LoseLife();
+        GameObject explosionInstance = Instantiate(explosion);
+        explosionInstance.transform.position = transform.position; 
+
+        StartCoroutine(GameManager.Instance.DelayedLoseLife());
     }
 }

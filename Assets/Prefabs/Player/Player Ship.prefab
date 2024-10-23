@@ -4964,6 +4964,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfd88b6b2d6b7487f853540a998a1ea2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerRigidbody: {fileID: 3650503999815512608}
+  explosion: {fileID: 1702422011693294, guid: fcc8588f82be2cb47a1bf6d99db36448, type: 3}
 --- !u!108 &6952109687846727034
 Light:
   m_ObjectHideFlags: 0

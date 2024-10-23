@@ -136,6 +136,7 @@ MonoBehaviour:
   actorModel: {fileID: 11400000, guid: 1d614b7817815418a928e7da091dcfb9, type: 2}
   distanceToRunAway: 200
   agent: {fileID: 764816447235163396}
+  explosion: {fileID: 1702422011693294, guid: fcc8588f82be2cb47a1bf6d99db36448, type: 3}
 --- !u!1 &8302519854851002173
 GameObject:
   m_ObjectHideFlags: 0

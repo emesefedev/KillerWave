@@ -143,6 +143,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   verticalSpeed: 2
   verticalAmplitude: 1
+  explosion: {fileID: 1702422011693294, guid: fcc8588f82be2cb47a1bf6d99db36448, type: 3}
 --- !u!1 &3417534368045165087
 GameObject:
   m_ObjectHideFlags: 0

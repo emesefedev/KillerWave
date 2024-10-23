@@ -14,6 +14,8 @@ public class EnemyFlee : MonoBehaviour, IActorTemplate {
     [SerializeField] private float distanceToRunAway = 200;
     [SerializeField] private NavMeshAgent agent;
 
+    [SerializeField] private GameObject explosion;
+
     private void Start()
     {
         ActorStats(actorModel);
@@ -67,6 +69,9 @@ public class EnemyFlee : MonoBehaviour, IActorTemplate {
 
     public void Die()
     {
+        GameObject explosionInstance = Instantiate(explosion);
+        explosionInstance.transform.position = transform.position; 
+
         Destroy(this.gameObject);
     }
 
