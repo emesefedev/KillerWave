@@ -81,6 +81,7 @@ public class ScenesManager : MonoBehaviour
 
     public void BeginGame(int gameLevel)
     {
+        gameTimer = 0;
         SceneManager.LoadScene(gameLevel);
     }
 
