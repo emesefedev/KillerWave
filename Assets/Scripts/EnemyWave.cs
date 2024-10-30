@@ -15,6 +15,8 @@ public class EnemyWave : MonoBehaviour, IActorTemplate
     private float verticalSine;
     private float time;
 
+    [SerializeField] private GameObject explosion;
+
     private void FixedUpdate()
     {
         Attack();
@@ -56,6 +58,9 @@ public class EnemyWave : MonoBehaviour, IActorTemplate
 
     public void Die()
     {
+        GameObject explosionInstance = Instantiate(explosion);
+        explosionInstance.transform.position = transform.position; 
+
         Destroy(gameObject);
     }
 

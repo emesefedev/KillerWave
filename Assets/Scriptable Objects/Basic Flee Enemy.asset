@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6bdf9316b8b24e8482b7df7ef1428d1, type: 3}
+  m_Name: Basic Flee Enemy
+  m_EditorClassIdentifier: 
+  actorName: Enemy Flee
+  attackType: 2
+  description: Runs away from player
+  health: 3
+  speed: 1000
+  hitPower: 1
+  score: 500
+  actor: {fileID: 635845101446182796, guid: 149d588fa9735448dad3562dc8a286ca, type: 3}
+  actorBullets: {fileID: 0}

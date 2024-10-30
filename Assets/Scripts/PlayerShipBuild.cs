@@ -58,7 +58,11 @@ public class PlayerShipBuild : MonoBehaviour, IUnityAdsInitializationListener, I
         TurnOffPlayerShipVisualUpgrades();
         PreparePlayerShipForUpgrade();
 
-        StartCoroutine(WaitForAd());     
+        StartCoroutine(WaitForAd());
+
+        #if UNITY_STANDALONE
+        watchAdButton.gameObject.SetActive(false);
+        #endif  
     }
 
     #region ADVERTISEMENT

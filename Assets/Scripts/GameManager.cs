@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Scenes = ScenesManager.Scenes;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,8 +23,8 @@ public class GameManager : MonoBehaviour
         set { died = value; }
     }
 
-    [SerializeField] private Camera mainCamera; // To do: me tocará obtener referencia por código    
-    [SerializeField] private Light directionalLight; // To do: me tocará obtener referencia por código
+    private Camera mainCamera; 
+    private Light directionalLight; 
     private Vector3 initialCameraPosition = new Vector3(0, 0, -300);
 
     private Vector3 directionalLightRotation = new Vector3(50, -30, 0);
@@ -31,6 +32,10 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        #if UNITY_ANDROID
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        #endif
+
         CheckGameManagerIsInScene();
         currentScene = (Scenes) SceneManager.GetActiveScene().buildIndex;
         CameraAndLightSetup(currentScene);
@@ -85,17 +90,22 @@ public class GameManager : MonoBehaviour
 
     public void CameraSetup(float cameraSpeed) 
     {
+        mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+
         mainCamera.transform.position = initialCameraPosition;
         mainCamera.transform.rotation = Quaternion.identity;
 
         mainCamera.clearFlags = CameraClearFlags.SolidColor;
         mainCamera.backgroundColor = Color.black;
 
-        mainCamera.GetComponent<CameraMovement>().CameraSpeed = cameraSpeed;
+        CameraMovement cameraMovement = mainCamera.GetComponent<CameraMovement>();
+        if (cameraMovement) cameraMovement.CameraSpeed = cameraSpeed; // Only available in Level 3
     }
 
     private void LightSetup()
     {
+        directionalLight = GameObject.Find("Directional Light").GetComponent<Light>();
+
         directionalLight.transform.eulerAngles = directionalLightRotation;
         directionalLight.color = directionalLightColor;
     }
@@ -130,6 +140,12 @@ public class GameManager : MonoBehaviour
             playerLives = 3;
             scenesManager.GameOver();
         }
+    }
+
+    public IEnumerator DelayedLoseLife() 
+    {
+        yield return new WaitForSeconds(1);
+        LoseLife();
     }
 
     public ScoreManager GetScoreManager()

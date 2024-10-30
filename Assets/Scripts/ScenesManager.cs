@@ -81,6 +81,7 @@ public class ScenesManager : MonoBehaviour
 
     public void BeginGame(int gameLevel)
     {
+        gameTimer = 0;
         SceneManager.LoadScene(gameLevel);
     }
 
@@ -111,7 +112,15 @@ public class ScenesManager : MonoBehaviour
                     if (!gameEnding)
                     {
                         gameEnding = true;
-                        PlayerTransition playerTransition = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerTransition>();
+
+                        GameObject player = GameObject.FindGameObjectWithTag("Player");
+                        PlayerTransition playerTransition = player.GetComponent<PlayerTransition>();
+
+                        player.GetComponent<Rigidbody>().isKinematic = true;
+                        Player.mobileMode = false;
+                        CancelInvoke();
+                        
+                        
                         if (!currentScene.ToString().Equals("Level3"))
                         {
                             playerTransition.LevelEnds = true;
